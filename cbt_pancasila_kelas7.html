@@ -1,0 +1,295 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+#app{padding:1rem 0;max-width:700px;margin:0 auto}
+.cover{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:2rem;text-align:center}
+.cover-badge{display:inline-block;background:#E6F1FB;color:#0C447C;font-size:12px;font-weight:500;padding:4px 14px;border-radius:var(--border-radius-md);margin-bottom:1rem}
+.cover h1{font-size:22px;font-weight:500;color:var(--color-text-primary);margin-bottom:.5rem}
+.cover h2{font-size:16px;font-weight:400;color:var(--color-text-secondary);margin-bottom:1.5rem}
+.form-group{margin-bottom:1rem;text-align:left}
+.form-group label{display:block;font-size:14px;color:var(--color-text-secondary);margin-bottom:4px}
+.form-group input,.form-group select{width:100%;padding:8px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:15px;background:var(--color-background-primary);color:var(--color-text-primary)}
+.btn{display:inline-block;padding:10px 28px;border-radius:var(--border-radius-md);font-size:15px;font-weight:500;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);transition:background .15s}
+.btn:hover{background:var(--color-background-secondary)}
+.btn-primary{background:#185FA5;color:#fff;border-color:#185FA5}
+.btn-primary:hover{background:#0C447C}
+.quiz-header{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.section-label{font-size:12px;font-weight:500;padding:3px 10px;border-radius:var(--border-radius-md)}
+.lbl-pg{background:#E6F1FB;color:#185FA5}
+.lbl-pgk{background:#EAF3DE;color:#27500A}
+.lbl-ur{background:#FAEEDA;color:#633806}
+.q-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
+.q-num{font-size:12px;color:var(--color-text-tertiary);margin-bottom:.5rem}
+.stimulus{background:var(--color-background-secondary);border-left:3px solid #185FA5;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:.75rem 1rem;margin-bottom:.75rem;font-size:13px;color:var(--color-text-secondary);font-style:italic;line-height:1.6}
+.stim-img{width:100%;max-height:130px;object-fit:cover;border-radius:var(--border-radius-md);margin-bottom:.5rem;display:block}
+.q-text{font-size:15px;color:var(--color-text-primary);margin-bottom:.75rem;line-height:1.6}
+.options label{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:6px;cursor:pointer;font-size:14px;color:var(--color-text-primary);line-height:1.5;transition:background .1s}
+.options label:hover{background:var(--color-background-secondary)}
+.options label.selected{background:#E6F1FB;border-color:#185FA5;color:#0C447C}
+.options label.correct{background:#EAF3DE;border-color:#0F6E56;color:#085041}
+.options label.wrong{background:#FCEBEB;border-color:#A32D2D;color:#791F1F}
+.options input[type=checkbox]{margin-top:2px;accent-color:#185FA5}
+.options input[type=radio]{margin-top:2px;accent-color:#185FA5}
+.uraian-area{width:100%;min-height:90px;padding:8px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-primary);color:var(--color-text-primary);resize:vertical;line-height:1.6}
+.nav-btns{display:flex;gap:.75rem;margin-top:.5rem;flex-wrap:wrap}
+.progress-bar{height:4px;background:var(--color-border-tertiary);border-radius:2px;margin-bottom:1rem;overflow:hidden}
+.progress-fill{height:100%;background:#185FA5;border-radius:2px;transition:width .3s}
+.result-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:2rem;text-align:center}
+.score-circle{width:110px;height:110px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;flex-direction:column;border:3px solid #185FA5;background:#E6F1FB}
+.score-num{font-size:32px;font-weight:500;color:#185FA5}
+.score-label{font-size:11px;color:#185FA5;font-weight:500}
+.feedback-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;margin:1rem 0;text-align:left}
+.detail-table{width:100%;font-size:13px;border-collapse:collapse;margin-top:.75rem}
+.detail-table th{color:var(--color-text-secondary);font-weight:500;padding:4px 8px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left}
+.detail-table td{padding:4px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:var(--border-radius-md);font-weight:500}
+.pill-ok{background:#EAF3DE;color:#27500A}
+.pill-no{background:#FCEBEB;color:#791F1F}
+</style>
+
+<div id="app">
+<h2 class="sr-only">Aplikasi CBT Pendidikan Pancasila Kelas 7</h2>
+<div id="view-cover"></div>
+</div>
+
+<script>
+const SOAL_PG = [
+  {stimulus:"🏞️ Gambar: Sekelompok penari mengenakan pakaian adat dari berbagai daerah di Indonesia sedang tampil dalam festival budaya nasional.",soal:"Keberagaman tari daerah di Indonesia merupakan wujud nyata dari...",opsi:["a. Perpecahan bangsa","b. Kekayaan budaya nasional","c. Ketidakseragaman masyarakat","d. Perbedaan suku yang memisahkan"],jwb:"b"},
+  {stimulus:"📖 Teks: Di Indonesia terdapat lebih dari 700 bahasa daerah yang digunakan oleh berbagai suku bangsa di seluruh wilayah nusantara.",soal:"Keberagaman bahasa daerah di Indonesia seharusnya membuat kita...",opsi:["a. Merasa bangga dan melestarikannya","b. Hanya menggunakan bahasa asing","c. Melupakan bahasa daerah sendiri","d. Meremehkan bahasa daerah lain"],jwb:"a"},
+  {stimulus:"🎨 Gambar: Anak-anak memakai pakaian adat daerah masing-masing saat perayaan Hari Kemerdekaan di sekolah.",soal:"Fungsi utama pakaian adat dalam kehidupan masyarakat adalah...",opsi:["a. Sebagai penanda status sosial semata","b. Identitas dan kebanggaan budaya daerah","c. Pembeda antarsuku yang saling bertentangan","d. Peninggalan masa lalu yang tidak relevan"],jwb:"b"},
+  {stimulus:"📖 Teks: Tradisi saling mengunjungi saat Lebaran di berbagai daerah memiliki nama dan cara yang berbeda, namun memiliki makna yang sama yaitu mempererat tali silaturahmi.",soal:"Dari pernyataan di atas dapat disimpulkan bahwa tradisi lokal...",opsi:["a. Membuat masyarakat terpecah belah","b. Mengandung nilai persaudaraan yang universal","c. Hanya berlaku untuk satu agama saja","d. Tidak perlu dipertahankan di era modern"],jwb:"b"},
+  {stimulus:"🌿 Gambar: Foto hutan adat yang dijaga oleh masyarakat lokal secara turun-temurun dengan sistem aturan adat.",soal:"Pelestarian lingkungan melalui kearifan lokal menunjukkan bahwa...",opsi:["a. Budaya lokal tidak relevan dengan lingkungan","b. Masyarakat adat merusak hutan","c. Kearifan lokal berperan dalam menjaga alam","d. Pemerintah tidak perlu ikut campur"],jwb:"c"},
+  {stimulus:"📖 Teks: Banyak tradisi dan bahasa daerah di Indonesia yang terancam punah karena generasi muda kurang minat untuk mempelajarinya.",soal:"Upaya yang tepat untuk melestarikan budaya yang terancam punah adalah...",opsi:["a. Melarang penggunaan teknologi modern","b. Mengadakan festival budaya dan pembelajaran di sekolah","c. Menutup diri dari pengaruh luar","d. Membiarkan budaya berkembang sendiri"],jwb:"b"},
+  {stimulus:"🎭 Gambar: Pertunjukan wayang kulit yang disaksikan oleh penonton dari berbagai usia di suatu desa.",soal:"Wayang kulit sebagai kearifan lokal mengandung nilai...",opsi:["a. Hiburan semata tanpa makna mendalam","b. Nilai moral, filsafat, dan pendidikan karakter","c. Ajaran yang bertentangan dengan agama","d. Warisan yang perlu segera ditinggalkan"],jwb:"b"},
+  {stimulus:"📖 Teks: Masyarakat Baduy di Banten memiliki aturan adat yang melarang penggunaan teknologi modern untuk menjaga keseimbangan alam.",soal:"Sikap kita terhadap kearifan lokal seperti yang diterapkan masyarakat Baduy adalah...",opsi:["a. Mengkritik sebagai cara hidup yang terbelakang","b. Menghormati sebagai bentuk keberagaman budaya","c. Memaksa mereka menggunakan teknologi modern","d. Mengabaikannya karena tidak relevan"],jwb:"b"},
+  {stimulus:"🌾 Gambar: Warga desa sedang melaksanakan ritual syukuran panen padi secara bersama-sama.",soal:"Ritual syukuran panen merupakan contoh kearifan lokal yang mencerminkan nilai...",opsi:["a. Kesombongan masyarakat agraris","b. Rasa syukur dan kebersamaan komunitas","c. Pemborosan waktu dan sumber daya","d. Kepercayaan terhadap takhayul belaka"],jwb:"b"},
+  {stimulus:"📖 Teks: Program revitalisasi bahasa daerah dilaksanakan dengan memasukkan muatan lokal dalam kurikulum sekolah di berbagai provinsi.",soal:"Manfaat memasukkan bahasa daerah dalam kurikulum sekolah adalah...",opsi:["a. Menghambat penguasaan bahasa nasional","b. Melestarikan identitas budaya daerah","c. Membebani siswa dengan pelajaran tambahan","d. Mempersulit proses pembelajaran"],jwb:"b"},
+  {stimulus:"🤝 Gambar: Warga kampung bersama-sama membangun jembatan bambu secara bergotong royong.",soal:"Gotong royong dalam membangun fasilitas umum mencerminkan nilai...",opsi:["a. Keterpaksaan karena tidak ada uang","b. Kebersamaan dan solidaritas sosial","c. Pemborosan tenaga masyarakat","d. Ketidakmampuan pemerintah"],jwb:"b"},
+  {stimulus:"📖 Teks: Dalam Pancasila, sila ketiga berbunyi 'Persatuan Indonesia'. Sila ini menjadi landasan bagi seluruh rakyat Indonesia untuk hidup bersatu.",soal:"Penerapan sila ketiga Pancasila dalam kehidupan sehari-hari dapat dilakukan dengan...",opsi:["a. Hanya berteman dengan sesama suku","b. Menghargai dan menghormati perbedaan","c. Mengutamakan kepentingan kelompok sendiri","d. Menolak kebudayaan daerah lain"],jwb:"b"},
+  {stimulus:"🏠 Gambar: Suasana kerja bakti membersihkan lingkungan RT setiap hari Minggu pagi.",soal:"Kerja bakti membersihkan lingkungan merupakan contoh penerapan gotong royong di lingkungan...",opsi:["a. Keluarga","b. Sekolah","c. Masyarakat","d. Pemerintahan"],jwb:"c"},
+  {stimulus:"📖 Teks: Siswa-siswi kelas 7 bersama-sama mempersiapkan dekorasi untuk acara pentas seni sekolah tanpa ada yang mengeluh.",soal:"Perilaku siswa tersebut mencerminkan sikap...",opsi:["a. Gotong royong dan rela berkorban","b. Terpaksa membantu teman","c. Mencari perhatian guru","d. Tidak ada kerjasama yang nyata"],jwb:"a"},
+  {stimulus:"💡 Gambar: Ilustrasi seseorang yang hanya mementingkan diri sendiri sementara orang-orang di sekitarnya membutuhkan bantuan.",soal:"Sikap egois dalam kehidupan bermasyarakat dapat mengakibatkan...",opsi:["a. Persatuan yang semakin kuat","b. Lingkungan yang harmonis","c. Perpecahan dan konflik sosial","d. Kemajuan bersama yang pesat"],jwb:"c"},
+  {stimulus:"📖 Teks: Tolong-menolong merupakan salah satu nilai yang tercantum dalam sila kelima Pancasila tentang keadilan sosial bagi seluruh rakyat Indonesia.",soal:"Mengapa tolong-menolong penting dalam kehidupan bermasyarakat?",opsi:["a. Agar mendapat pujian dari orang lain","b. Karena manusia adalah makhluk sosial yang saling membutuhkan","c. Untuk memenuhi kewajiban hukum","d. Supaya mendapat imbalan balik"],jwb:"b"},
+  {stimulus:"🌍 Gambar: Peta Indonesia yang memperlihatkan ribuan pulau dari Sabang sampai Merauke.",soal:"Keberagaman budaya di Indonesia yang sangat luas seharusnya menjadi...",opsi:["a. Sumber konflik antardaerah","b. Alasan untuk saling menonjolkan keunggulan","c. Kekuatan dan kekayaan bangsa","d. Penyebab sulitnya persatuan"],jwb:"c"},
+  {stimulus:"📖 Teks: Di lingkungan sekolah, kegiatan piket kelas dilakukan secara bergantian oleh semua siswa tanpa terkecuali.",soal:"Sistem piket kelas merupakan contoh penerapan prinsip...",opsi:["a. Kompetisi antarkelompok","b. Tanggung jawab bersama dan gotong royong","c. Hukuman bagi siswa nakal","d. Kebebasan individual"],jwb:"b"},
+  {stimulus:"🎪 Gambar: Pameran kebudayaan daerah yang menampilkan kerajinan tangan, makanan khas, dan pakaian adat dari 34 provinsi.",soal:"Tujuan utama diadakannya pameran budaya daerah adalah...",opsi:["a. Mencari keuntungan ekonomi semata","b. Menunjukkan superioritas budaya tertentu","c. Memperkenalkan dan melestarikan budaya daerah","d. Menghibur wisatawan asing"],jwb:"c"},
+  {stimulus:"📖 Teks: Nilai-nilai luhur kearifan lokal seperti musyawarah mufakat, saling menghormati, dan tolong-menolong perlu diterapkan dalam kehidupan modern.",soal:"Penerapan nilai kearifan lokal dalam kehidupan modern menunjukkan bahwa...",opsi:["a. Kita harus menolak semua inovasi","b. Nilai tradisional tidak relevan lagi","c. Kearifan lokal tetap bermakna di era modern","d. Modernisasi harus menggantikan semua tradisi"],jwb:"c"},
+  {stimulus:"🌱 Gambar: Anak-anak sekolah menanam pohon di halaman sekolah dalam program penghijauan.",soal:"Kegiatan menanam pohon di sekolah merupakan bentuk kepedulian terhadap...",opsi:["a. Lingkungan hidup dan keberlanjutan alam","b. Kewajiban akademik semata","c. Tugas yang diberikan guru","d. Persyaratan kelulusan"],jwb:"a"},
+  {stimulus:"📖 Teks: Sistem subak di Bali merupakan sistem pengairan sawah yang dikelola bersama oleh petani secara gotong royong dan telah diakui UNESCO.",soal:"Sistem subak Bali menunjukkan bahwa kearifan lokal dapat...",opsi:["a. Menghambat pertanian modern","b. Diakui dunia dan bernilai tinggi","c. Menyebabkan konflik antarwarga","d. Membuat petani bergantung pada tradisi"],jwb:"b"},
+  {stimulus:"👨‍👩‍👧‍👦 Gambar: Keluarga bersama-sama membersihkan rumah dan halaman saat persiapan menyambut hari raya.",soal:"Kerjasama dalam keluarga saat membersihkan rumah mencerminkan gotong royong di lingkungan...",opsi:["a. Masyarakat","b. Sekolah","c. Pemerintahan","d. Keluarga"],jwb:"d"},
+  {stimulus:"📖 Teks: Konflik antarsuku sering terjadi karena kurangnya pemahaman dan penghargaan terhadap perbedaan budaya.",soal:"Cara terbaik mencegah konflik akibat perbedaan budaya adalah...",opsi:["a. Menghilangkan semua perbedaan budaya","b. Mengedukasi masyarakat tentang keberagaman dan toleransi","c. Melarang interaksi antarsuku","d. Memisahkan wilayah berdasarkan suku"],jwb:"b"},
+  {stimulus:"🏫 Gambar: Siswa dari berbagai suku dan agama duduk bersama dalam satu kelas yang harmonis.",soal:"Suasana kelas yang harmonis dengan keberagaman siswa mencerminkan nilai...",opsi:["a. Diskriminasi yang terselubung","b. Persatuan dalam keberagaman","c. Paksaan untuk bersatu","d. Ketidakpedulian terhadap perbedaan"],jwb:"b"},
+  {stimulus:"📖 Teks: Budaya gotong royong mulai memudar di perkotaan seiring meningkatnya individualisme dan kesibukan masing-masing warga.",soal:"Upaya yang dapat dilakukan untuk menghidupkan kembali semangat gotong royong di perkotaan adalah...",opsi:["a. Membuat aturan wajib gotong royong dengan sanksi","b. Mengembalikan kesadaran akan pentingnya kebersamaan melalui pendidikan","c. Mengabaikan karena sudah tidak relevan","d. Menyerahkan semua tugas kemasyarakatan kepada pemerintah"],jwb:"b"},
+  {stimulus:"🎯 Gambar: Olimpiade sains yang diikuti oleh siswa dari berbagai daerah bekerja dalam satu tim nasional.",soal:"Kerjasama dalam tim yang beragam seperti olimpiade sains nasional mengajarkan nilai...",opsi:["a. Persaingan yang tidak sehat","b. Kolaborasi melampaui perbedaan untuk tujuan bersama","c. Keunggulan satu daerah tertentu","d. Ketidakbutuhan kerjasama"],jwb:"b"},
+  {stimulus:"📖 Teks: Seorang siswa menolak berpartisipasi dalam kerja bakti sekolah karena merasa itu bukan tugasnya.",soal:"Sikap siswa tersebut bertentangan dengan nilai...",opsi:["a. Kompetisi sehat","b. Gotong royong dan kepedulian sosial","c. Kebebasan berekspresi","d. Prestasi akademik"],jwb:"b"},
+  {stimulus:"🌺 Gambar: Pernikahan adat Jawa dengan seluruh prosesi ritual yang kaya makna filosofis.",soal:"Upacara pernikahan adat kaya makna filosofis menunjukkan bahwa tradisi lokal...",opsi:["a. Hanya berfungsi sebagai hiburan","b. Mengandung nilai dan ajaran kehidupan yang mendalam","c. Membuang-buang biaya dan waktu","d. Hanya berlaku bagi kelompok tertentu"],jwb:"b"},
+  {stimulus:"📖 Teks: Indonesia dikenal sebagai negara dengan keberagaman suku, bahasa, agama, dan budaya yang luar biasa kaya.",soal:"Semboyan 'Bhinneka Tunggal Ika' yang berarti 'Berbeda-beda tetapi tetap satu' paling tepat menggambarkan kondisi Indonesia yang...",opsi:["a. Seragam dan tanpa perbedaan","b. Terpecah karena keberagaman","c. Beragam namun tetap bersatu dalam satu bangsa","d. Harus menjadi satu budaya saja"],jwb:"c"}
+];
+
+const SOAL_PGK = [
+  {stimulus:"📖 Teks: Festival budaya daerah diadakan untuk memperkenalkan keberagaman seni, kuliner, dan tradisi dari berbagai daerah di Indonesia kepada generasi muda.",soal:"Manfaat mengikuti festival budaya daerah antara lain... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Mengenal dan menghargai budaya daerah lain","b. Menumbuhkan rasa bangga sebagai bangsa Indonesia","c. Membuktikan bahwa budaya kita lebih baik","d. Menghindari pengaruh budaya asing sepenuhnya"],jwb:["a","b"]},
+  {stimulus:"🌿 Gambar: Masyarakat adat melakukan ritual pembakaran hutan yang terkontrol sesuai aturan adat untuk menyuburkan tanah.",soal:"Kearifan lokal dalam menjaga lingkungan dapat diwujudkan dengan... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Menerapkan aturan adat tentang pengelolaan hutan","b. Melakukan ritual syukuran atas hasil alam","c. Mengeksploitasi alam sebesar-besarnya","d. Menjaga hutan larangan yang diwariskan leluhur"],jwb:["a","b","d"]},
+  {stimulus:"📖 Teks: Gotong royong adalah nilai budaya asli Indonesia yang mencerminkan semangat kebersamaan dan saling membantu.",soal:"Contoh penerapan gotong royong yang benar di lingkungan masyarakat adalah... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Kerja bakti membersihkan saluran air","b. Ronda malam bersama warga","c. Menolak membantu tetangga yang berbeda agama","d. Sumbangan sukarela untuk korban bencana"],jwb:["a","b","d"]},
+  {stimulus:"🏫 Gambar: Siswa berdiskusi kelompok untuk mengerjakan proyek bersama di kelas.",soal:"Manfaat kerjasama dalam mengerjakan proyek kelompok di sekolah adalah... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Pekerjaan lebih cepat selesai dan berkualitas","b. Melatih kemampuan komunikasi dan toleransi","c. Mendapatkan nilai lebih tinggi dari teman","d. Menghindari tanggung jawab pribadi"],jwb:["a","b"]},
+  {stimulus:"📖 Teks: Kepala desa mengajak warga untuk berdiskusi bersama menentukan penggunaan dana desa melalui musyawarah.",soal:"Musyawarah mufakat dalam pengambilan keputusan mencerminkan nilai... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Demokrasi yang menghargai suara semua pihak","b. Gotong royong dalam bentuk berbagi pendapat","c. Dominasi kelompok mayoritas","d. Kepedulian sosial terhadap kepentingan bersama"],jwb:["a","b","d"]},
+  {stimulus:"🎭 Gambar: Pertunjukan kesenian daerah oleh siswa dalam acara peringatan Hari Pendidikan Nasional.",soal:"Melestarikan kesenian daerah penting dilakukan karena... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Kesenian daerah adalah identitas dan warisan budaya bangsa","b. Mencegah kesenian daerah dari kepunahan","c. Untuk menarik wisatawan dan mendapat keuntungan","d. Supaya tidak perlu belajar kesenian modern"],jwb:["a","b"]},
+  {stimulus:"📖 Teks: Konflik antara dua kelompok di sebuah desa terjadi akibat kesalahpahaman dan kurangnya komunikasi.",soal:"Cara mengatasi konflik sosial yang tepat sesuai nilai Pancasila adalah... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Musyawarah untuk mencapai mufakat","b. Saling memaafkan dan menghormati","c. Membalas perbuatan pihak lain","d. Mempermasalahkan perbedaan lebih dalam"],jwb:["a","b"]},
+  {stimulus:"🌺 Gambar: Anak-anak bermain permainan tradisional seperti congklak dan egrang bersama-sama.",soal:"Melestarikan permainan tradisional bermanfaat untuk... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Menjaga warisan budaya lokal","b. Membangun kerjasama dan sportivitas anak","c. Menggantikan teknologi sepenuhnya","d. Menolak globalisasi budaya"],jwb:["a","b"]},
+  {stimulus:"📖 Teks: Setiap individu memiliki peran dalam menjaga persatuan dan kesatuan bangsa Indonesia.",soal:"Tindakan yang dapat dilakukan pelajar untuk menjaga persatuan bangsa adalah... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Tidak membeda-bedakan teman berdasarkan suku atau agama","b. Menggunakan bahasa Indonesia yang baik dalam pergaulan","c. Hanya berteman dengan yang sepemikiran","d. Menyebarkan informasi yang memecah belah"],jwb:["a","b"]},
+  {stimulus:"🤝 Gambar: Relawan dari berbagai daerah membantu korban bencana alam bersama-sama.",soal:"Kegiatan sukarela membantu korban bencana mencerminkan nilai... (Pilih 2 atau lebih jawaban benar)",opsi:["a. Gotong royong lintas daerah","b. Kepedulian sosial tanpa pamrih","c. Kewajiban yang harus dipaksa","d. Kemanusiaan yang adil dan beradab (sila ke-2 Pancasila)"],jwb:["a","b","d"]}
+];
+
+const SOAL_URAIAN = [
+  {stimulus:"🏞️ Gambar: Peta Indonesia dengan ikon-ikon yang menggambarkan keberagaman budaya dari Sabang sampai Merauke.",soal:"Jelaskan mengapa keberagaman budaya di Indonesia harus dijaga dan dilestarikan! Berikan minimal 3 alasan yang kuat."},
+  {stimulus:"📖 Teks: 'Alam terkembang jadi guru' adalah pepatah Minangkabau yang bermakna bahwa alam dapat menjadi sumber belajar dan pedoman hidup manusia.",soal:"Apa yang dimaksud dengan kearifan lokal? Berikan 2 contoh kearifan lokal dari daerah yang kamu ketahui dan jelaskan nilai yang terkandung di dalamnya!"},
+  {stimulus:"🤝 Gambar: Ilustrasi dua situasi: kiri menunjukkan gotong royong membangun jembatan, kanan menunjukkan seseorang bekerja sendiri dan kelelahan.",soal:"Bandingkan manfaat bekerja secara gotong royong dengan bekerja secara individual! Mengapa gotong royong lebih menguntungkan bagi masyarakat?"},
+  {stimulus:"📖 Teks: 'Bersatu kita teguh, bercerai kita runtuh' adalah semboyan yang mencerminkan pentingnya persatuan bagi bangsa Indonesia.",soal:"Bagaimana cara kamu sebagai pelajar kelas 7 dapat berkontribusi dalam menjaga persatuan dan kesatuan di lingkungan sekolah? Sebutkan minimal 4 cara nyata!"},
+  {stimulus:"🌱 Gambar: Foto lingkungan desa yang bersih, hijau, dan terawat berkat kerja sama warganya, dibandingkan lingkungan perkotaan yang kotor dan tidak terawat.",soal:"Jelaskan hubungan antara gotong royong dengan kelestarian lingkungan hidup! Bagaimana semangat gotong royong dapat membantu menjaga lingkungan agar tetap sehat dan bersih?"}
+];
+
+let nama="",kelas="",currentSection=0,currentQ=0;
+let jawaban={pg:{},pgk:{},ur:{}};
+let showResult=false;
+
+function renderCover(){
+  document.getElementById("view-cover").innerHTML=`
+  <div class="cover">
+    <div class="cover-badge">Ujian CBT</div>
+    <h1>Pendidikan Pancasila</h1>
+    <h2>Kelas 7 — Keberagaman Budaya &amp; Gotong Royong</h2>
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;margin-bottom:1.5rem;text-align:left">
+      <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.7"><strong style="color:var(--color-text-primary)">Petunjuk:</strong><br>
+      • 30 soal Pilihan Ganda (PG)<br>
+      • 10 soal PG Kompleks (pilih jawaban benar lebih dari satu)<br>
+      • 5 soal Uraian (jawab dengan kalimat lengkap)<br>
+      • Setiap soal dilengkapi stimulus gambar atau teks<br>
+      • Kerjakan dengan jujur dan teliti</p>
+    </div>
+    <div class="form-group">
+      <label>Nama Lengkap</label>
+      <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap kamu" />
+    </div>
+    <div class="form-group">
+      <label>Kelas</label>
+      <select id="inp-kelas">
+        <option value="">-- Pilih Kelas --</option>
+        <option>7A</option><option>7B</option><option>7C</option><option>7D</option>
+        <option>7E</option><option>7F</option><option>7G</option><option>7H</option><option>7I</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="startQuiz()">Mulai Ujian →</button>
+  </div>`;
+}
+
+function startQuiz(){
+  nama=document.getElementById("inp-nama").value.trim();
+  kelas=document.getElementById("inp-kelas").value;
+  if(!nama||!kelas){alert("Mohon isi nama dan kelas terlebih dahulu!");return;}
+  currentSection=0;currentQ=0;
+  renderQuiz();
+}
+
+function getSection(){return currentSection===0?"PG":currentSection===1?"PGK":"UR";}
+function getSoal(){
+  if(currentSection===0)return SOAL_PG[currentQ];
+  if(currentSection===1)return SOAL_PGK[currentQ];
+  return SOAL_URAIAN[currentQ];
+}
+function totalQ(){return currentSection===0?30:currentSection===1?10:5;}
+function globalNum(){return currentSection===0?currentQ+1:currentSection===1?30+currentQ+1:40+currentQ+1;}
+
+function renderQuiz(){
+  const sec=getSection();
+  const soal=getSoal();
+  const total=45;
+  const gNum=globalNum();
+  const pct=Math.round((gNum-1)/total*100);
+
+  let stimHTML=`<div class="stimulus">${soal.stimulus}</div>`;
+  let ansHTML="";
+
+  if(sec==="PG"){
+    const sel=jawaban.pg[currentQ]||"";
+    ansHTML=`<div class="options">`+soal.opsi.map((o,i)=>{
+      const v=o[0];
+      const cls=sel===v?"selected":"";
+      return `<label class="${cls}"><input type="radio" name="pgans" value="${v}" onchange="savePG('${v}')" ${sel===v?"checked":""}> ${o}</label>`;
+    }).join("")+`</div>`;
+  } else if(sec==="PGK"){
+    const sel=jawaban.pgk[currentQ]||[];
+    ansHTML=`<div class="options">`+soal.opsi.map((o,i)=>{
+      const v=o[0];
+      const checked=sel.includes(v);
+      return `<label class="${checked?"selected":""}"><input type="checkbox" value="${v}" onchange="savePGK(this)" ${checked?"checked":""}> ${o}</label>`;
+    }).join("")+`</div>`;
+  } else {
+    const val=jawaban.ur[currentQ]||"";
+    ansHTML=`<textarea class="uraian-area" placeholder="Tulis jawaban kamu di sini..." oninput="saveUR(this.value)">${val}</textarea>`;
+  }
+
+  const secLabel=sec==="PG"?`<span class="section-label lbl-pg">Pilihan Ganda</span>`:sec==="PGK"?`<span class="section-label lbl-pgk">PG Kompleks</span>`:`<span class="section-label lbl-ur">Uraian</span>`;
+
+  document.getElementById("view-cover").innerHTML=`
+  <div class="quiz-header">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      ${secLabel}
+      <span style="font-size:13px;color:var(--color-text-secondary)">No. ${gNum} / 45</span>
+    </div>
+    <div style="font-size:13px;color:var(--color-text-secondary)">👤 ${nama} — ${kelas}</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+  <div class="q-card">
+    <div class="q-num">Soal ${gNum} dari 45 ${sec==="PGK"?"— Pilih semua jawaban yang benar":""}</div>
+    ${stimHTML}
+    <div class="q-text">${soal.soal}</div>
+    ${ansHTML}
+  </div>
+  <div class="nav-btns">
+    ${gNum>1?`<button class="btn" onclick="prevQ()">← Sebelumnya</button>`:""}
+    ${gNum<45?`<button class="btn btn-primary" onclick="nextQ()">Selanjutnya →</button>`:`<button class="btn btn-primary" onclick="submitQuiz()">Selesai & Lihat Nilai ✓</button>`}
+  </div>`;
+}
+
+function savePG(v){jawaban.pg[currentQ]=v;renderQuiz();}
+function savePGK(el){
+  if(!jawaban.pgk[currentQ])jawaban.pgk[currentQ]=[];
+  const arr=jawaban.pgk[currentQ];
+  if(el.checked){if(!arr.includes(el.value))arr.push(el.value);}
+  else{const i=arr.indexOf(el.value);if(i>-1)arr.splice(i,1);}
+  renderQuiz();
+}
+function saveUR(v){jawaban.ur[currentQ]=v;}
+
+function nextQ(){
+  if(document.querySelector(".uraian-area"))jawaban.ur[currentQ]=document.querySelector(".uraian-area").value;
+  if(currentQ<totalQ()-1){currentQ++;renderQuiz();return;}
+  if(currentSection<2){currentSection++;currentQ=0;renderQuiz();}
+}
+function prevQ(){
+  if(document.querySelector(".uraian-area"))jawaban.ur[currentQ]=document.querySelector(".uraian-area").value;
+  if(currentQ>0){currentQ--;renderQuiz();return;}
+  if(currentSection>0){currentSection--;currentQ=totalQ()-1;renderQuiz();}
+}
+
+function submitQuiz(){
+  if(document.querySelector(".uraian-area"))jawaban.ur[currentQ]=document.querySelector(".uraian-area").value;
+  if(!confirm("Apakah kamu yakin ingin mengumpulkan jawaban?"))return;
+  showResults();
+}
+
+function showResults(){
+  let pgBenar=0,pgkBenar=0,urSkor=0;
+  SOAL_PG.forEach((s,i)=>{if(jawaban.pg[i]===s.jwb)pgBenar++;});
+  SOAL_PGK.forEach((s,i)=>{
+    const userAns=(jawaban.pgk[i]||[]).sort().join("");
+    const correct=s.jwb.sort().join("");
+    if(userAns===correct)pgkBenar++;
+  });
+  let urDiisi=0;
+  SOAL_URAIAN.forEach((s,i)=>{const v=(jawaban.ur[i]||"").trim();if(v.length>30)urDiisi++;});
+  urSkor=urDiisi*4;
+
+  const pgSkor=pgBenar*2;
+  const pgkSkor=pgkBenar*2;
+  const total=pgSkor+pgkSkor+urSkor;
+  const max=100;
+  const nilai=Math.min(100,total);
+
+  let grade,warna,umpan;
+  if(nilai>=90){grade="A";warna="#0F6E56";umpan="Luar Biasa! Kamu menguasai materi dengan sangat baik. Terus pertahankan semangat belajarmu dan jadilah teladan bagi teman-teman!";}
+  else if(nilai>=80){grade="B";warna="#185FA5";umpan="Bagus sekali! Pemahamanmu sudah baik. Tingkatkan lagi dengan membaca materi tentang kearifan lokal dan gotong royong lebih mendalam.";}
+  else if(nilai>=70){grade="C";warna="#BA7517";umpan="Cukup baik! Kamu sudah memahami konsep dasarnya. Pelajari kembali materi pelestarian budaya dan penerapan gotong royong dalam kehidupan sehari-hari.";}
+  else if(nilai>=60){grade="D";warna="#993C1D";umpan="Perlu lebih banyak belajar. Fokuskan belajarmu pada materi keberagaman budaya Indonesia, kearifan lokal, dan nilai-nilai Pancasila dalam kehidupan bermasyarakat.";}
+  else{grade="E";warna="#A32D2D";umpan="Jangan menyerah! Baca kembali seluruh materi tentang keanekaragaman budaya, pelestarian lingkungan, gotong royong, dan persatuan bangsa. Minta bantuan gurumu.";}
+
+  document.getElementById("view-cover").innerHTML=`
+  <div class="result-card">
+    <div class="score-circle" style="border-color:${warna};background:${warna}15">
+      <span class="score-num" style="color:${warna}">${nilai}</span>
+      <span class="score-label" style="color:${warna}">Grade ${grade}</span>
+    </div>
+    <h2 style="font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:.25rem">${nama}</h2>
+    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem">Kelas ${kelas} · CBT Pendidikan Pancasila</p>
+    <div class="feedback-box">
+      <p style="font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:.5rem">💬 Umpan Balik</p>
+      <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.6">${umpan}</p>
+    </div>
+    <table class="detail-table">
+      <thead><tr><th>Bagian</th><th>Benar</th><th>Skor</th></tr></thead>
+      <tbody>
+        <tr><td>Pilihan Ganda (30 soal × 2)</td><td>${pgBenar}/30</td><td>${pgSkor}</td></tr>
+        <tr><td>PG Kompleks (10 soal × 2)</td><td>${pgkBenar}/10</td><td>${pgkSkor}</td></tr>
+        <tr><td>Uraian (5 soal × 4)*</td><td>${urDiisi}/5</td><td>${urSkor}</td></tr>
+        <tr style="font-weight:500"><td>Total Nilai</td><td colspan="2" style="color:${warna}">${nilai} / 100</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--color-text-tertiary);margin-top:.5rem">*Skor uraian dihitung berdasarkan kelengkapan jawaban</p>
+    <div style="margin-top:1.5rem">
+      <button class="btn btn-primary" onclick="location.reload()">Ulangi Ujian</button>
+    </div>
+  </div>`;
+}
+
+renderCover();
+</script>
